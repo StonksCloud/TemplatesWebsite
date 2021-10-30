@@ -11,6 +11,7 @@
     "@sweetalert2/theme-dark": "^5.0.6",
     "animate.css": "^4.1.1",
     "core-js": "^3.6.5",
+    "jquery": "^3.6.0",
     "vue": "^2.6.11",
     "vuesax": "^4.0.1-alpha.25"
   },

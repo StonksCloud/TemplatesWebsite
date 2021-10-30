@@ -5,7 +5,12 @@
     <vs-row>
       <vs-col offset="4" w="4">
         <vs-input v-model="search.value" @click-icon="botInterface.value = true" border block primary icon-after text-white placeholder="Search...">
-          <template #icon><i class="fas fa-robot" /></template>
+          <template #icon>
+            <vs-tooltip style="display: inline-block">
+              <i class="fas fa-robot" />
+              <template #tooltip>Click here, to select a Bot.</template>
+            </vs-tooltip>
+          </template>
           <template #message-primary>Search for a Token, Keyword or Platform.</template>
         </vs-input>
       </vs-col>
@@ -22,10 +27,16 @@
                 <span v-if="index.platform === 'DISCORD'" style="color: #937af3; font-size: 18px" class="no-select"><i class="fab fa-discord"></i> <span class="removeItem">Discord</span></span>
                 <span v-if="index.platform === 'TEAMSPEAK'" style="color: #4473fc; font-size: 18px" class="no-select"><i class="fab fa-teamspeak"></i> <span class="removeItem">TeamSpeak</span></span>
               </p>
-              <h3 class="no-select">{{ index.uniqueId }} <i class="fas fa-copy" style="color: #939393" @click="copy(index.uniqueId)"></i></h3>
+              <h2 class="no-select">{{ index.name }}</h2>
+              <h4 class="no-select" style="font-size: 15px">{{ index.uniqueId }}
+                <vs-tooltip style="display: inline-block">
+                  <i class="fas fa-copy" style="color: #939393" @click="copy(index.uniqueId)"></i>
+                  <template #tooltip>Copy</template>
+                </vs-tooltip>
+              </h4>
             </template>
             <template #img>
-              <img src="https://vounty.net/Logo.png" class="no-select" loading="lazy" alt="Image was not found :/">
+              <img :src="search.gifLayouts.includes(index.uniqueId) ? index.icon.replace('.png', '.gif') : index.icon" class="no-select" loading="lazy" alt="Image was not found :/">
             </template>
             <template #text>
               <vs-button style="display: inline-block" size="small" v-for="keyword in index.keywords" :key="keyword" @click="searchByKeyword(keyword)">{{ keyword }}</vs-button>
@@ -44,10 +55,16 @@
       </template>
       <vs-row justify="space-around" class="botSelectBox">
         <vs-col w="6">
-          <i class="fab fa-discord" @click="downloadBot('discord')"></i>
+          <vs-tooltip>
+            <i class="fab fa-discord" @click="downloadBot('discord')"></i>
+            <template #tooltip>Discord</template>
+          </vs-tooltip>
         </vs-col>
         <vs-col w="6">
-          <i class="fab fa-teamspeak" @click="downloadBot('teamspeak')"></i>
+          <vs-tooltip>
+            <i class="fab fa-teamspeak" @click="downloadBot('teamspeak')"></i>
+            <template #tooltip>TeamSpeak</template>
+          </vs-tooltip>
         </vs-col>
       </vs-row>
     </vs-dialog>
@@ -88,7 +105,8 @@ export default {
     return {
       search: {
         value: '',
-        layouts: []
+        layouts: [],
+        gifLayouts: []
       },
       botInterface: {
         value: false
@@ -158,7 +176,17 @@ export default {
             setTimeout(() => {
               this.loadDefaultLayouts()
             }, 5000);
-          }).then(layouts => {this.search.layouts = layouts.templates;})
+          }).then(layouts => {
+            this.search.layouts = layouts.templates;
+
+            layouts.templates.forEach(value => {
+              fetch(value.icon.slice().replace('.png', '.gif'))
+                  .then(test => {
+                    if (test.status === 200) this.search.gifLayouts.push(value.uniqueId);
+                  })
+            })
+
+          })
     },
     notify: function (icon, title, text, timer, confirm) {
       swal.fire({

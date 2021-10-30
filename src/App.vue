@@ -21,9 +21,6 @@ body {
   height: auto;
   overflow-x: hidden;
 }
-.vs-card .vs-card__text {
-  border-top: 2px solid rgb(38, 38, 38);
-}
 .vs-card .vs-card__img, .vs-card .vs-card__img * {
   border-radius: 7px 7px 0 0;
 }
@@ -33,8 +30,8 @@ body {
 .vs-card .vs-card__text, .vs-card .vs-card__img {
   background: rgb(23, 23, 23);
   color: #ffff;
-  -webkit-box-shadow: 11px 7px 17px 1px rgba(0,0,0,0.57);
-  box-shadow: 11px 7px 17px 1px rgba(0,0,0,0.57);
+  -webkit-box-shadow: 11px 7px 17px 1px rgba(0,0,0,0.80);
+  box-shadow: 11px 7px 17px 1px rgba(0,0,0,0.80);
 }
 .vs-card .vs-card__text {
   border-bottom-right-radius: 15px;
