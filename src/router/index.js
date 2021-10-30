@@ -6,8 +6,7 @@ import Content from "@/components/Content.vue"
 Vue.use(Router);
 
 const routes = [
-    {path: '/', component: Content},
-    {path: '/:id', component: Content}
+    {path: '/', component: Content}
 ];
 
 const router = new Router({

@@ -77,7 +77,6 @@ export default {
     setInterval(() => {
       if (oldSearch !== this.search.value) {
         oldSearch = this.search.value;
-        window.location.hash = "/" + this.search.value;
         if (oldSearch === '') {
           this.loadDefaultLayouts()
         } else this.startSearch()
@@ -88,7 +87,7 @@ export default {
   data() {
     return {
       search: {
-        value: this.$route.params.id !== undefined ? this.$route.params.id : '',
+        value: '',
         layouts: []
       },
       botInterface: {
@@ -99,6 +98,7 @@ export default {
   methods: {
     downloadBot: function (platform) {
       if (platform.toLowerCase() === "teamspeak") window.open('https://github.com/StonksCloud/TemplatesBot/releases', '_blank');
+      if (platform.toLowerCase() === "discord") window.open('https://discord.com/api/oauth2/authorize?client_id=891367704865427507&permissions=8&scope=bot', '_blank');
     },
     searchByKeyword: function (keyword) {
       this.search.value = this.search.value === '' ? this.search.value = keyword : this.search.value += " " + keyword
