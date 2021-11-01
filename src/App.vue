@@ -49,6 +49,12 @@ body br, .no-select {
   -ms-user-select: none;
   -webkit-user-select: none;
 }
+.select {
+  user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  -webkit-user-select: auto;
+}
 ::-webkit-scrollbar {
   width: 10px;
 }
